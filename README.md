@@ -1,43 +1,47 @@
-#  Sistem Presensi Geofencing: Analisis Komparatif Algoritma Haversine & Vincenty
+#  Sistem Presensi Geofencing: Komparasi Algoritma Haversine & Vincenty
 
-Sistem informasi presensi perkuliahan berbasis *Mobile* dan *Web* yang menerapkan teknologi **Geofencing** dan **Dynamic QR Code**. Proyek ini dikembangkan untuk membandingkan tingkat akurasi dan performa waktu komputasi antara **Algoritma Haversine** dan **Algoritma Vincenty** dalam menentukan jarak presensi mahasiswa terhadap lokasi dosen (WGS-84).
+[![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=flat&logo=Flutter&logoColor=white)]()
+[![Vue.js](https://img.shields.io/badge/Vue.js-35495E?style=flat&logo=vue.js&logoColor=4FC08D)]()
+[![Node.js](https://img.shields.io/badge/Node.js-43853D?style=flat&logo=node.js&logoColor=white)]()
+[![MySQL](https://img.shields.io/badge/MySQL-00000F?style=flat&logo=mysql&logoColor=white)]()
 
-Proyek ini dikembangkan sebagai bagian dari penelitian Tugas Akhir di Program Studi Teknologi Rekayasa Perangkat Lunak, Jurusan Teknologi Informasi, Politeknik Negeri Padang.
+Sistem informasi presensi perkuliahan terintegrasi (*Mobile* & *Web*) yang menerapkan teknologi **Geofencing** dan **Dynamic QR Code**. Penelitian ini berfokus pada **Analisis Komparatif** antara algoritma **Haversine** dan **Vincenty** dalam menghitung jarak geodesik mahasiswa terhadap titik koordinat dosen (standar WGS-84) secara *real-time*.
 
----
-
-##  Fitur Utama
-
-- **Geofencing Validation:** Validasi lokasi mahasiswa secara presisi menggunakan sensor GPS *smartphone*.
-- **Algoritma Komparatif:** Menghitung jarak geodesik menggunakan metode Haversine dan Vincenty secara *real-time* di sisi server, lengkap dengan pencatatan waktu komputasi (milidetik).
-- **Dynamic QR Code:** Kode QR sesi perkuliahan yang di-*refresh* otomatis setiap beberapa detik untuk mencegah kecurangan manipulasi jarak jauh (*screen sharing/video call*).
-- **Real-time Dashboard:** Dosen dapat melihat jumlah mahasiswa yang hadir secara *real-time* tanpa perlu me-*refresh* halaman (didukung oleh Socket.io).
-- **Security:** Autentikasi berbasis JSON Web Token (JWT) dengan umur token yang ketat (15 menit) pada sesi aplikasi *mobile*.
-- **Auto-Housekeeping:** Cron jobs otomatis untuk membersihkan (*housekeeping*) *file* sampah/foto izin lama pada server.
+Dikembangkan sebagai Tugas Akhir di Program Studi Teknologi Rekayasa Perangkat Lunak, Jurusan Teknologi Informasi, Politeknik Negeri Padang.
 
 ---
 
-## 🛠️ Tech Stack
-
-Sistem ini terdiri dari tiga bagian utama:
-
-1. **Backend (API & Socket):** Node.js, Express.js, Sequelize ORM, MySQL, Socket.io, JWT.
-2. **Frontend Mobile (Mahasiswa):** Flutter, Dart, Geolocator, HTTP, JWT Decoder.
-3. **Frontend Web (Admin & Dosen):** Vue.js, Tailwind CSS.
+##  Cuplikan Layar (Screenshots)
+*(Tambahkan gambar antarmuka aplikasi di sini untuk memberikan gambaran visual kepada pembaca)*
+| Dashboard Dosen (Web) | Scanner Mahasiswa (Mobile) | Riwayat Presensi |
+| :---: | :---: | :---: |
+| `[Screenshot Web]` | `[Screenshot Mobile]` | `[Screenshot Riwayat]` |
 
 ---
 
-##  Cara Instalasi & Menjalankan Aplikasi
+## ⚙️ Cara Kerja Sistem (Alur Presensi)
 
-### 1. Persiapan Database & Backend (Node.js)
-1. *Clone* repositori ini: `git clone https://github.com/username-anda/nama-repo.git`
-2. Masuk ke folder backend: `cd backend`
-3. Install semua dependensi: `npm install`
-4. Buat file `.env` di *root* folder backend berdasarkan file `.env.example` dan sesuaikan konfigurasi database Anda:
-   ```env
-   PORT=5000
-   DB_HOST=localhost
-   DB_USER=root
-   DB_PASS=
-   DB_NAME=db_absensi_geofencing
-   JWT_SECRET=rahasia_jwt_anda
+1. **Inisiasi Sesi:** Dosen membuka sesi perkuliahan melalui aplikasi Web/Mobile. Sistem mencatat titik koordinat (GPS) laptop/perangkat dosen sebagai titik referensi (*center point*).
+2. **Dynamic QR Code:** Sistem memunculkan QR Code di layar dosen yang akan diperbarui (di-*refresh*) secara otomatis setiap 5 detik untuk mencegah kecurangan via *video call* atau *screen sharing*.
+3. **Pemindaian (Scanning):** Mahasiswa melakukan *scan* QR Code menggunakan aplikasi Flutter. Aplikasi akan memvalidasi masa aktif JWT (maksimal 15 menit) sebelum mengambil koordinat GPS mahasiswa.
+4. **Komputasi Jarak:** Backend Node.js menerima data koordinat dan mengeksekusi perhitungan jarak menggunakan **Haversine** dan **Vincenty** secara bersamaan.
+5. **Validasi Geofencing:** Jika jarak (berdasarkan kalkulasi Vincenty) berada di luar batas radius yang ditentukan, presensi ditolak. Jika sesuai, data disimpan beserta catatan waktu (*timestamp*) dan waktu komputasi milidetik dari kedua algoritma.
+
+---
+
+## 📂 Struktur Direktori
+
+Proyek ini menggunakan struktur *Monorepo* yang memuat tiga layanan utama:
+
+```text
+📦 project-root
+ ┣ 📂 backend            # REST API & WebSocket (Node.js, Express, Sequelize)
+ ┃ ┣ 📂 src/controllers  # Logika bisnis (Auth, Absensi, Sesi)
+ ┃ ┣ 📂 src/models       # Skema database MySQL
+ ┃ ┗ 📜 test_real.js     # Script Load Testing & Concurrency
+ ┣ 📂 mobile-mahasiswa   # Aplikasi Mobile Mahasiswa (Flutter, Dart)
+ ┃ ┣ 📂 lib/core         # Konfigurasi, endpoint API, dan servis lokal
+ ┃ ┗ 📂 lib/modules      # UI/UX Scanner, Dashboard, Riwayat
+ ┗ 📂 web-dosen          # Dashboard Dosen & Admin (Vue.js, Tailwind CSS)
+   ┣ 📂 src/components   # Komponen UI Reusable
+   ┗ 📂 src/views        # Halaman utama Web
