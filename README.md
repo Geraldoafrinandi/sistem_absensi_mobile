@@ -1,4 +1,4 @@
-# 📱 Sistem Presensi Geofencing (Aplikasi Mahasiswa)
+#  Sistem Presensi Geofencing (Aplikasi Mahasiswa)
 
 [![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=flat&logo=Flutter&logoColor=white)]()
 [![Dart](https://img.shields.io/badge/Dart-%230175C2.svg?style=flat&logo=dart&logoColor=white)]()
@@ -10,7 +10,7 @@ Aplikasi ini akan mengirimkan data sensor GPS (Latitude, Longitude, Altitude, da
 
 ---
 
-## ✨ Fitur Utama (Mobile)
+##  Fitur Utama (Mobile)
 
 - **QR Code Scanner:** Pemindai *Dynamic QR Code* bawaan yang merespons secara cepat dan sangat sensitif terhadap batas waktu (*timeout*).
 - **High-Accuracy GPS Extraction:** Mengambil data koordinat spesifik mahasiswa secara *real-time* menggunakan *package* `geolocator`.
@@ -20,7 +20,30 @@ Aplikasi ini akan mengirimkan data sensor GPS (Latitude, Longitude, Altitude, da
 
 ---
 
-## 🚀 Panduan Instalasi (Development)
+##  Struktur Direktori
+
+Aplikasi ini menggunakan arsitektur modular yang memisahkan antara logika *core*, UI, dan konfigurasi API:
+
+```text
+📦 lib
+ ┣ 📂 core               # Konfigurasi utama aplikasi
+ ┃ ┣ 📂 data             # Endpoint API dan global state (GlobalData)
+ ┃ ┣ 📂 routes           # Manajemen navigasi (AppRoutes)
+ ┃ ┣ 📂 services         # Layanan lokal (StorageService, DeviceHelper)
+ ┃ ┗ 📂 ui/widgets       # Komponen UI global (Dialog, Snackbar, dll)
+ ┣ 📂 modules            # Fitur spesifik (Halaman Utama)
+ ┃ ┣ 📂 auth             # Halaman & Controller Login/Logout
+ ┃ ┣ 📂 history          # Halaman Riwayat Absensi
+ ┃ ┣ 📂 home             # Halaman Utama (Beranda)
+ ┃ ┣ 📂 profile          # Halaman Profile Mahasiswa
+ ┃ ┣ 📂 scanner          # Halaman Scanner QR Code
+ ┃ ┗ 📂 schedule         # Halaman Jadwal Perkuliahan
+ ┗ 📜 main.dart          # Entry point aplikasi (Inisialisasi & Cek Sesi)
+```
+
+---
+
+##  Panduan Instalasi (Development)
 
 ### Prasyarat Sistem
 - **Flutter SDK** (v3.x atau lebih baru)
@@ -29,10 +52,10 @@ Aplikasi ini akan mengirimkan data sensor GPS (Latitude, Longitude, Altitude, da
 
 ### Langkah-langkah Menjalankan Proyek
 
-1. *Clone* repositori ini ke komputer Anda:
+1. *Clone* repositori ini :
    ```bash
-   git clone [https://github.com/username-anda/repo-mobile-absensi.git](https://github.com/username-anda/repo-mobile-absensi.git)
-   cd repo-mobile-absensi
+   git clone [(https://github.com/Geraldoafrinandi/repo-mobile-absensi.git)](https://github.com/Geraldoafrinandi/sistem_absensi_mobile.git)
+   cd sistem_absensi_mobile
    ```
 
 2. Unduh semua dependensi (*packages*):
@@ -45,7 +68,7 @@ Aplikasi ini akan mengirimkan data sensor GPS (Latitude, Longitude, Altitude, da
    *(Catatan: Jangan gunakan `http://localhost` jika Anda menguji menggunakan smartphone fisik, karena HP tidak mengenali localhost komputer Anda).*
    ```dart
    // Contoh konfigurasi di endpoint_api.dart
-   static const String baseUrl = "[http://192.168.1.15:5000/api/mobile](http://192.168.1.15:5000/api/mobile)"; 
+   static const String baseUrl = "(http://192.168.1.15:5000/api/mobile)"; 
    ```
 
 4. Hubungkan perangkat *smartphone* Anda melalui kabel data (pastikan *USB Debugging* aktif), lalu jalankan aplikasi:
@@ -55,7 +78,7 @@ Aplikasi ini akan mengirimkan data sensor GPS (Latitude, Longitude, Altitude, da
 
 ---
 
-## 📱 Panduan Build & Instalasi APK (Distribution)
+##  Panduan Build & Instalasi APK (Distribution)
 
 Untuk membagikan aplikasi ini kepada mahasiswa atau dosen penguji untuk keperluan demo/sidang, Anda harus mengompilasi kode menjadi file `.apk`.
 
@@ -72,25 +95,24 @@ Untuk membagikan aplikasi ini kepada mahasiswa atau dosen penguji untuk keperlua
    - Jika muncul peringatan keamanan instalasi, pilih **"Settings" / "Pengaturan"**, lalu aktifkan izin **"Allow from this source" / "Instal Aplikasi Tidak Dikenal"**.
    - Buka aplikasi dan **Wajib izinkan akses Lokasi (Precise/Akurat)** serta **Kamera**.
 
+---
 
-## 📂 Struktur Direktori
+##  Keamanan Sistem di Sisi Klien (Client-Side Security)
 
-Aplikasi ini menggunakan arsitektur modular yang memisahkan antara logika *core*, UI, dan konfigurasi API:
+Aplikasi ini merupakan garda terdepan dari pembatasan kecurangan (*edge cases*) yang diterapkan pada sistem Geofencing:
 
-```text
-📦 lib
- ┣ 📂 core               # Konfigurasi utama aplikasi
- ┃ ┣ 📂 data             # Endpoint API dan global state (GlobalData)
- ┃ ┣ 📂 routes           # Manajemen navigasi (AppRoutes)
- ┃ ┣ 📂 services         # Layanan lokal (StorageService, DeviceHelper)
- ┃ ┗ 📂 ui/widgets       # Komponen UI global (Dialog, Snackbar, dll)
- ┣ 📂 modules            # Fitur spesifik (Halaman Utama)
- ┃ ┣ 📂 auth             # Halaman & Controller Login/Logout
- ┃ ┣ 📂 history          # Halaman Riwayat
- ┃ ┣ 📂 home             # Halaman Utama (Beranda)
- ┃ ┣ 📂 profile          # Halaman & Controller Login/Logout
- ┃ ┗ 📂 scanner          # Halaman Profile
- ┃ ┣ 📂 schedule         # Halaman Jadwal
- ┗ 📜 main.dart          # Entry point aplikasi (Inisialisasi & Cek Sesi)
+- **Auto-Logout Sesi (15 Menit):** Melalui pengecekan sesi, aplikasi akan memaksa mahasiswa keluar (*logout*) jika token telah kadaluarsa.
+- **Pre-Validation Request:** Mencegah permintaan (*request*) API berlebihan (DDoS lokal) dengan mengecek *expired date* dari JWT secara *offline* sebelum memicu sensor GPS.
+- **Deteksi GPS Spoofing / Akurasi Rendah:** Aplikasi menyertakan nilai `accuracy` pada setiap pengiriman data absensi untuk divalidasi lebih lanjut oleh *backend*.
 
 ---
+
+##  Penulis
+
+**Geraldo Afrinandi Persada**  
+Mahasiswa Teknologi Rekayasa Perangkat Lunak  
+Jurusan Teknologi Informasi, Politeknik Negeri Padang  
+🌐 **Portfolio:** [geraldosite.my.id](https://geraldosite.my.id)
+
+---
+*Dibuat untuk keperluan penelitian Tugas Akhir Akademik (2025/2026).*
