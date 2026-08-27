@@ -110,9 +110,7 @@ Aplikasi ini merupakan garda terdepan dari pembatasan kecurangan (*edge cases*) 
 ##  Penulis
 
 **Geraldo Afrinandi Persada**  
-Mahasiswa Teknologi Rekayasa Perangkat Lunak  
-Jurusan Teknologi Informasi, Politeknik Negeri Padang  
 🌐 **Portfolio:** [geraldosite.my.id](https://geraldosite.my.id)
 
 ---
-*Dibuat untuk keperluan penelitian Tugas Akhir Akademik (2025/2026).*
+
