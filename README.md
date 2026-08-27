@@ -20,6 +20,26 @@ Aplikasi ini akan mengirimkan data sensor GPS (Latitude, Longitude, Altitude, da
 
 ---
 
+ Panduan Instalasi (Development)
+Prasyarat Sistem
+Flutter SDK (v3.x atau lebih baru)
+
+Android Studio atau VS Code dengan ekstensi Flutter
+
+Perangkat fisik Android/iOS atau Emulator
+
+Langkah-langkah Menjalankan Proyek
+Clone repositori ini ke komputer Anda:
+
+Bash
+git clone [https://github.com/username-anda/repo-mobile-absensi.git](https://github.com/username-anda/repo-mobile-absensi.git)
+cd repo-mobile-absensi
+Unduh semua dependensi (packages):
+
+Bash
+flutter pub get
+
+
 ## 📂 Struktur Direktori
 
 Aplikasi ini menggunakan arsitektur modular yang memisahkan antara logika *core*, UI, dan konfigurasi API:
@@ -39,3 +59,5 @@ Aplikasi ini menggunakan arsitektur modular yang memisahkan antara logika *core*
  ┃ ┗ 📂 scanner          # Halaman Profile
  ┃ ┣ 📂 schedule         # Halaman Jadwal
  ┗ 📜 main.dart          # Entry point aplikasi (Inisialisasi & Cek Sesi)
+
+---
