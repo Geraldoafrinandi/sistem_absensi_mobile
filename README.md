@@ -1,4 +1,4 @@
-# 📍 Sistem Presensi Geofencing: Analisis Komparatif Algoritma Haversine & Vincenty
+#  Sistem Presensi Geofencing: Analisis Komparatif Algoritma Haversine & Vincenty
 
 Sistem informasi presensi perkuliahan berbasis *Mobile* dan *Web* yang menerapkan teknologi **Geofencing** dan **Dynamic QR Code**. Proyek ini dikembangkan untuk membandingkan tingkat akurasi dan performa waktu komputasi antara **Algoritma Haversine** dan **Algoritma Vincenty** dalam menentukan jarak presensi mahasiswa terhadap lokasi dosen (WGS-84).
 
@@ -6,7 +6,7 @@ Proyek ini dikembangkan sebagai bagian dari penelitian Tugas Akhir di Program St
 
 ---
 
-## ✨ Fitur Utama
+##  Fitur Utama
 
 - **Geofencing Validation:** Validasi lokasi mahasiswa secara presisi menggunakan sensor GPS *smartphone*.
 - **Algoritma Komparatif:** Menghitung jarak geodesik menggunakan metode Haversine dan Vincenty secara *real-time* di sisi server, lengkap dengan pencatatan waktu komputasi (milidetik).
@@ -27,7 +27,7 @@ Sistem ini terdiri dari tiga bagian utama:
 
 ---
 
-## 🚀 Cara Instalasi & Menjalankan Aplikasi
+##  Cara Instalasi & Menjalankan Aplikasi
 
 ### 1. Persiapan Database & Backend (Node.js)
 1. *Clone* repositori ini: `git clone https://github.com/username-anda/nama-repo.git`
